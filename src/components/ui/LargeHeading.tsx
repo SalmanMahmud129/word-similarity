@@ -3,13 +3,14 @@ import {VariantProps, cva} from 'class-variance-authority'
 import { cn } from '@/app/lib/utils'
 
 
-const paragraphVariants = cva(
-    "max-w-prose text-slate-700 dark:text-slate-300 mb:2 text-center", 
+const headingVariants = cva(
+    "text-black dark:text-white text-center lg:text-left font-extrabold leading-tight tracking-tighter", 
     {
         variants : { 
             size: {
-                default: 'text-base sm:text-lg',
-                sm: 'text-sm sm:text-base'
+                default: 'text-4xl md:text-5xl lg:text-6xl',
+                sm: 'text-2xl md:text-3xl lg:text-4xl',
+                lg: 'text-5xl md:text-6xl lg:text-7xl',
             }
         },
         defaultVariants: {
@@ -25,7 +26,7 @@ const paragraphVariants = cva(
 
     //with variant props we now have access to the size prop that we defined above with our default and sm options
     
-    interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement>, VariantProps<typeof paragraphVariants> {
+    interface LargeHeadingProps extends HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof headingVariants> {
         
     }
 
@@ -39,16 +40,18 @@ const paragraphVariants = cva(
 //     return <div>Paragraph</div>
 // }
 
-const Paragraph = forwardRef<HTMLParagraphElement, ParagraphProps >(({
+const LargeHeading = forwardRef<HTMLHeadElement, LargeHeadingProps >(({
     className, size, children, ...props
-}, ref) => {
-    return <p ref={ref} {...props} className={cn(
-        paragraphVariants({size, className})
+},) => {
+    return <h1 {...props} className={cn(
+        headingVariants({size, className})
     )}>
         {children}
-    </p>
+    </h1>
 })
 
-Paragraph.displayName = 'Paragraph'
 
-export default Paragraph
+// for debugging purposes. Since we are using a forward ref
+LargeHeading.displayName = 'LargeHeading'
+
+export default LargeHeading
